@@ -1,0 +1,42 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
+PROJECT(Never3DViewer LANGUAGES CXX)
+
+SET(OpenMesh_DIR D:/Librarys/OpenMesh8.1)
+
+SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+SET(CMAKE_AUTOMOC ON)
+SET(CMAKE_AUTORCC ON)
+SET(CMAKE_AUTOUIC ON)
+
+FIND_PACKAGE(Qt5 COMPONENTS Core Widgets Gui OpenGL REQUIRED)
+
+SET(SRCs
+	main.cpp
+	gui/viewer3d.cpp
+)
+
+SET(HDRs
+	gui/viewer3d.h
+)
+
+ADD_EXECUTABLE( ${CMAKE_PROJECT_NAME}
+	${HDRs}
+	${SRCs}
+)
+
+TARGET_LINK_DIRECTORIES(${CMAKE_PROJECT_NAME} PUBLIC
+	${OpenMesh_DIR}/lib
+
+)
+
+TARGET_LINK_LIBRARIES(${CMAKE_PROJECT_NAME}
+	Qt5::Core
+	Qt5::Widgets
+	Qt5::Gui
+	Qt5::OpenGL
+	debug OpenMeshCored OpenMeshToolsd
+	optimized OpenMeshCore OpenMeshTools
+)
+
+
+#MESSAGE(STATUS "${QT5_DIR}")
